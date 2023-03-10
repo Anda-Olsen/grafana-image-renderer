@@ -25,8 +25,8 @@ RUN apk update && apk add --no-cache \
     libc-dev \
     g++ \
     alpine-sdk
-RUN npm install -g node-gyp
-RUN npm install -g grpc --unsafe
+RUN npm install node-gyp
+RUN npm install --build-from-source=grpc
 #
 
 FROM base as build
