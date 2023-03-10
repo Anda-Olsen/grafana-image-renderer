@@ -63,12 +63,12 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       
       # Extract metadata (tags, labels) for Docker
-    # https://github.com/docker/metadata-action
-    - name: Extract Docker metadata
-      id: meta
-      uses: docker/metadata-action@v4.1.1
-      with:
-        images: "${{ env.REGISTRY }}/${{ env.REPO }}"
+      # https://github.com/docker/metadata-action
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v4.1.1
+        with:
+          images: "${{ env.REGISTRY }}/${{ env.REPO }}"
           
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
