@@ -14,7 +14,7 @@ RUN \
   apk add --no-cache udev ttf-opensans unifont chromium ca-certificates dumb-init && \
   rm -rf /var/cache/apk/* /tmp/*
 
-RUN apk add --no-cache libc6-compat python alpine-sdk
+RUN apk update && apk add --no-cache libc6-compat python3 alpine-sdk
 RUN npm install -g node-gyp
 RUN npm install --build-from-source=grpc
 
