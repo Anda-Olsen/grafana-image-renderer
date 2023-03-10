@@ -2,6 +2,7 @@ FROM node:16-alpine AS base
 
 ENV CHROME_BIN="/usr/bin/chromium-browser"
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
+ENV CXXFLAGS="-Wno-ignored-qualifiers -Wno-stringop-truncation -Wno-cast-function-type"
 
 WORKDIR /usr/src/app
 
@@ -11,7 +12,11 @@ RUN \
   echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
   apk --no-cache upgrade && \
   apk add --no-cache udev ttf-opensans unifont chromium ca-certificates dumb-init && \
-  rm -rf /tmp/*
+  rm -rf /var/cache/apk/* /tmp/*
+
+RUN apk add --no-cache libc6-compat python alpine-sdk
+RUN npm install -g node-gyp
+RUN npm install --build-from-source=grpc
 
 FROM base as build
 
